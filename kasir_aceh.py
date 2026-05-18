@@ -21,6 +21,12 @@ harga_jarak =[5000, 10000, 15000, 20000, 25000]
 nama_pembeli = ''
 jarak_pembeli = 0
 ongkir = 0
+ metode = {
+        '1': 'COD',
+        '2': 'QRIS',
+        '3': 'ShopeePay',
+        '4': 'Transfer Bank BRI'
+    }
 
 #               SYSTEM
 def input_data_pelanggan():
@@ -115,12 +121,7 @@ def total_keranjang():
 
 
 def pilih_metode_pembayaran():
-    metode = {
-        '1': 'COD',
-        '2': 'QRIS',
-        '3': 'ShopeePay',
-        '4': 'Transfer Bank BRI'
-    }
+   
     while True:
         print("\nPilih Metode Pembayaran:")
         print("[1] COD")
