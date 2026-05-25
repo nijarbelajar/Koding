@@ -16,7 +16,7 @@ def telat () :
     if late.lower() == "y" :
         print ("anda belum dizinkan untuk cuti")
     elif late.lower() == "n" :
-        print (f"{nama_guru[n-1]} diizinkan untuk cuti")
+        print ("anda diizinkan untuk cuti")
 def tambah_guru () :
     nama = input("Masukkan nama guru: ")
     nomor = input("Masukkan nomor guru: ")
@@ -74,7 +74,7 @@ def dinas_luar () :
 while True :
     print ("\n\n=== MENU ===")
     for i,item in enumerate(menu, start=1):
-        print(f"{i}. {item}")
+        print(f"{[i]} {item}")
     n = int(input("pilih menu (1-7): "))
     if n == 1 :
         absen ()
@@ -93,3 +93,7 @@ while True :
         break
     else :
         print("Pilihan tidak valid")
+# Program ini dibuat oleh Nijar dengan NISN 0086344912 untuk memenuhi tugas mata pelajaran Pemrograman Dasar.
+# Program ini bertujuan untuk mengelola absensi, cuti, dan dinas luar guru di sebuah sekolah.
+# Dengan menggunakan def (function), program ini efektif dalam mengorganisir kode dan memudahkan pengguna dalam menjalankan berbagai fungsi yang tersedia.
+# penyimpanan data akan hilang ketika terminal ditutup, karena data disimpan dalam list yang bersifat sementara.
