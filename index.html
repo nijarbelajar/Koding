@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portofolio TKJ — Rangga Aditya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b1210;
+    --panel:#0f1c18;
+    --panel-2:#122420;
+    --line: rgba(120,255,200,0.14);
+    --line-strong: rgba(120,255,200,0.32);
+    --signal:#5ffbc0;
+    --signal-dim:#2f8f6d;
+    --amber:#ffb454;
+    --paper:#eaf3ee;
+    --paper-dim:#9fb5ac;
+    --mono:'JetBrains Mono', monospace;
+    --sans:'Space Grotesk', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--sans);
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--signal); color:var(--ink);}
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--signal);
+    outline-offset:3px;
+  }
+
+  /* ============ NAV ============ */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 5vw;
+    backdrop-filter: blur(10px);
+    background:linear-gradient(180deg, rgba(11,18,16,0.85), rgba(11,18,16,0));
+  }
+  .logo{
+    font-family:var(--mono); font-weight:800; font-size:15px;
+    letter-spacing:0.5px; display:flex; align-items:center; gap:10px;
+    color:var(--paper);
+  }
+  .logo .dot{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--signal);
+    box-shadow:0 0 10px var(--signal), 0 0 22px var(--signal);
+    animation: blink 2.4s ease-in-out infinite;
+  }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+  nav{display:flex; gap:32px; font-family:var(--mono); font-size:13px;}
+  nav a{color:var(--paper-dim); position:relative; padding-bottom:4px; transition:color .25s;}
+  nav a:hover{color:var(--signal);}
+  nav a::before{content:"/";  color:var(--signal-dim); margin-right:6px;}
+  @media (max-width:720px){ nav{display:none;} }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative; z-index:1;
+    min-height:100svh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:120px 5vw 60px;
+  }
+  .eyebrow{
+    font-family:var(--mono); font-size:13px; color:var(--signal);
+    display:flex; align-items:center; gap:10px; margin-bottom:26px;
+    letter-spacing:1px;
+  }
+  .eyebrow .rule{width:40px; height:1px; background:var(--signal-dim);}
+  h1{
+    font-family:var(--sans); font-weight:700;
+    font-size:clamp(2.4rem, 7vw, 5.4rem);
+    line-height:1.02; letter-spacing:-0.02em;
+    color:var(--paper); max-width:16ch;
+  }
+  h1 .accent{
+    color:var(--signal);
+    font-family:var(--mono); font-weight:700;
+  }
+  .lede{
+    margin-top:28px; max-width:52ch;
+    font-size:clamp(1rem,1.6vw,1.15rem);
+    color:var(--paper-dim); line-height:1.65;
+  }
+  .lede b{color:var(--paper); font-weight:600;}
+
+  .hero-actions{
+    margin-top:44px; display:flex; gap:16px; flex-wrap:wrap; align-items:center;
+  }
+  .btn-primary{
+    font-family:var(--mono); font-size:14px; font-weight:700;
+    background:var(--signal); color:var(--ink);
+    padding:14px 26px; border-radius:3px;
+    display:inline-flex; align-items:center; gap:10px;
+    transition:transform .2s ease, box-shadow .2s ease;
+    box-shadow:0 0 0 rgba(95,251,192,0);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 8px 24px rgba(95,251,192,0.25);}
+  .btn-ghost{
+    font-family:var(--mono); font-size:14px;
+    border:1px solid var(--line-strong); color:var(--paper);
+    padding:13px 24px; border-radius:3px;
+    transition:border-color .2s, color .2s;
+  }
+  .btn-ghost:hover{ border-color:var(--signal); color:var(--signal); }
+
+  /* status readout under hero */
+  .readout{
+    margin-top:64px; display:grid; grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--line); border-radius:4px; overflow:hidden;
+    max-width:720px;
+  }
+  .readout div{
+    padding:16px 18px; border-right:1px solid var(--line);
+    font-family:var(--mono);
+  }
+  .readout div:last-child{border-right:none;}
+  .readout .k{font-size:10px; color:var(--paper-dim); text-transform:uppercase; letter-spacing:1px;}
+  .readout .v{font-size:15px; color:var(--signal); margin-top:6px; font-weight:700;}
+  @media (max-width:640px){
+    .readout{grid-template-columns:repeat(2,1fr);}
+  }
+
+  /* ============ SECTION SHELL ============ */
+  section{position:relative; z-index:1; padding:100px 5vw;}
+  .section-head{
+    display:flex; align-items:baseline; gap:16px; margin-bottom:52px;
+    border-bottom:1px solid var(--line); padding-bottom:22px;
+  }
+  .section-head .tag{
+    font-family:var(--mono); color:var(--signal-dim); font-size:13px;
+  }
+  .section-head h2{
+    font-size:clamp(1.6rem,3vw,2.3rem); font-weight:700; color:var(--paper);
+  }
+
+  /* ============ SKILLS / PORTS ============ */
+  .ports{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:1px; background:var(--line); border:1px solid var(--line);
+  }
+  .port{
+    background:var(--panel); padding:30px 26px; position:relative;
+    transition:background .25s;
+  }
+  .port:hover{background:var(--panel-2);}
+  .port .num{
+    font-family:var(--mono); font-size:11px; color:var(--signal-dim);
+  }
+  .port h3{
+    margin-top:14px; font-size:1.1rem; color:var(--paper); font-weight:600;
+  }
+  .port p{
+    margin-top:10px; font-size:0.9rem; color:var(--paper-dim); line-height:1.6;
+  }
+  .port .led{
+    position:absolute; top:28px; right:26px; width:7px; height:7px;
+    border-radius:50%; background:var(--signal); box-shadow:0 0 8px var(--signal);
+  }
+
+  /* ============ PROJECTS ============ */
+  .projects{ display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line);}
+  .project{
+    background:var(--panel);
+    display:grid; grid-template-columns: 90px 1fr auto; gap:24px;
+    align-items:center; padding:26px 28px;
+    transition:background .25s;
+  }
+  .project:hover{background:var(--panel-2);}
+  .project .idx{ font-family:var(--mono); color:var(--signal-dim); font-size:13px;}
+  .project h3{ font-size:1.15rem; color:var(--paper); font-weight:600;}
+  .project .desc{ margin-top:6px; color:var(--paper-dim); font-size:0.88rem; max-width:60ch;}
+  .project .stack{
+    margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;
+  }
+  .project .stack span{
+    font-family:var(--mono); font-size:11px; color:var(--signal);
+    border:1px solid var(--line-strong); padding:4px 9px; border-radius:2px;
+  }
+  .project .arrow{ font-family:var(--mono); color:var(--paper-dim); font-size:20px;}
+  @media (max-width:720px){
+    .project{grid-template-columns:1fr; }
+    .project .arrow{display:none;}
+  }
+
+  /* ============ ABOUT / TOPOLOGY ============ */
+  .about-wrap{
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:center;
+  }
+  @media (max-width:900px){ .about-wrap{grid-template-columns:1fr;} }
+  .about-text p{ color:var(--paper-dim); line-height:1.75; margin-bottom:16px; font-size:1rem;}
+  .about-text b{color:var(--paper); font-weight:600;}
+  .cert-list{ margin-top:26px; display:flex; flex-direction:column; gap:10px;}
+  .cert-list li{
+    list-style:none; font-family:var(--mono); font-size:13px; color:var(--paper-dim);
+    display:flex; gap:10px; align-items:center;
+  }
+  .cert-list li::before{content:"▹"; color:var(--signal);}
+
+  /* topology svg card */
+  .topo-card{
+    border:1px solid var(--line-strong); border-radius:6px; padding:26px;
+    background:var(--panel);
+  }
+  .topo-card svg{width:100%; height:auto; display:block;}
+
+  /* ============ CONTACT ============ */
+  .contact{
+    text-align:center; padding:120px 5vw;
+  }
+  .contact h2{
+    font-size:clamp(1.8rem,5vw,3.2rem); font-weight:700; max-width:16ch; margin:0 auto;
+  }
+  .contact .accent{color:var(--signal); font-family:var(--mono);}
+  .contact p{ margin-top:20px; color:var(--paper-dim); max-width:46ch; margin-left:auto; margin-right:auto;}
+  .contact-links{
+    margin-top:40px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap;
+  }
+  .contact-links a{
+    font-family:var(--mono); font-size:13px; color:var(--paper);
+    border:1px solid var(--line-strong); padding:12px 22px; border-radius:3px;
+    transition:.2s;
+  }
+  .contact-links a:hover{border-color:var(--signal); color:var(--signal);}
+
+  footer{
+    border-top:1px solid var(--line); padding:26px 5vw;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--mono); font-size:12px; color:var(--paper-dim);
+    flex-wrap:wrap; gap:10px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .logo .dot{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span class="dot"></span>RANGGA://TKJ</div>
+  <nav>
+    <a href="#keahlian">keahlian</a>
+    <a href="#proyek">proyek</a>
+    <a href="#tentang">tentang</a>
+    <a href="#kontak">kontak</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow"><span class="rule"></span>SISWA TEKNIK KOMPUTER &amp; JARINGAN — KELAS XII</div>
+  <h1>Membangun jaringan yang <span class="accent">stabil</span>, bukan cuma nyala.</h1>
+  <p class="lede">
+    Saya Rangga Aditya, siswa TKJ yang senang mengulik <b>konfigurasi jaringan, server, dan troubleshooting perangkat</b>.
+    Halaman ini kumpulan proyek praktik dari sekolah dan eksplorasi pribadi — dari setting Mikrotik sampai instalasi server Linux.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="#proyek">Lihat Proyek →</a>
+    <a class="btn-ghost" href="#kontak">Hubungi Saya</a>
+  </div>
+
+  <div class="readout">
+    <div><div class="k">Status</div><div class="v">ONLINE</div></div>
+    <div><div class="k">Fokus</div><div class="v">Jaringan</div></div>
+    <div><div class="k">Sertifikat</div><div class="v">3 Aktif</div></div>
+    <div><div class="k">Uptime Belajar</div><div class="v">2 Thn</div></div>
+  </div>
+</section>
+
+<section id="keahlian">
+  <div class="section-head">
+    <span class="tag">01</span>
+    <h2>Port Keahlian</h2>
+  </div>
+  <div class="ports">
+    <div class="port">
+      <span class="led"></span>
+      <div class="num">PORT 01</div>
+      <h3>Konfigurasi Jaringan</h3>
+      <p>Routing &amp; switching dasar, VLAN, subnetting, dan setup Mikrotik RouterOS untuk jaringan kelas/lab.</p>
+    </div>
+    <div class="port">
+      <span class="led"></span>
+      <div class="num">PORT 02</div>
+      <h3>Administrasi Server</h3>
+      <p>Instalasi dan konfigurasi server Linux (Debian/Ubuntu): DNS, DHCP, FTP, dan web server dasar.</p>
+    </div>
+    <div class="port">
+      <span class="led"></span>
+      <div class="num">PORT 03</div>
+      <h3>Perakitan &amp; Perawatan PC</h3>
+      <p>Instalasi sistem operasi, troubleshooting hardware, dan perawatan jaringan komputer di lab sekolah.</p>
+    </div>
+    <div class="port">
+      <span class="led"></span>
+      <div class="num">PORT 04</div>
+      <h3>Keamanan Jaringan Dasar</h3>
+      <p>Konfigurasi firewall, access list sederhana, dan praktik keamanan dasar pada jaringan lokal.</p>
+    </div>
+  </div>
+</section>
+
+<section id="proyek">
+  <div class="section-head">
+    <span class="tag">02</span>
+    <h2>Proyek Praktik</h2>
+  </div>
+  <div class="projects">
+    <div class="project">
+      <div class="idx">P.01</div>
+      <div>
+        <h3>Jaringan Lab Komputer Sekolah</h3>
+        <div class="desc">Merancang dan memasang topologi star untuk 20 unit PC lab, lengkap dengan pembagian VLAN per kelas.</div>
+        <div class="stack"><span>Mikrotik</span><span>VLAN</span><span>Cisco Packet Tracer</span></div>
+      </div>
+      <div class="arrow">↗</div>
+    </div>
+    <div class="project">
+      <div class="idx">P.02</div>
+      <div>
+        <h3>Server DNS &amp; DHCP Mini</h3>
+        <div class="desc">Membangun server DNS dan DHCP di Debian sebagai simulasi jaringan kantor kecil untuk tugas PKL.</div>
+        <div class="stack"><span>Debian</span><span>DNS</span><span>DHCP</span></div>
+      </div>
+      <div class="arrow">↗</div>
+    </div>
+    <div class="project">
+      <div class="idx">P.03</div>
+      <div>
+        <h3>Monitoring Jaringan dengan Winbox</h3>
+        <div class="desc">Setup monitoring traffic dan bandwidth management untuk jaringan wifi sekolah menggunakan Mikrotik.</div>
+        <div class="stack"><span>Winbox</span><span>Bandwidth Management</span></div>
+      </div>
+      <div class="arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<section id="tentang">
+  <div class="section-head">
+    <span class="tag">03</span>
+    <h2>Tentang Saya</h2>
+  </div>
+  <div class="about-wrap">
+    <div class="about-text">
+      <p>Saya belajar TKJ sejak kelas X dan tertarik pada dunia jaringan sejak praktik pertama kali <b>crimping kabel UTP</b> dan melihat lampu indikator menyala hijau. Sejak itu saya suka memahami bagaimana data mengalir dari satu perangkat ke perangkat lain.</p>
+      <p>Saat ini saya sedang memperdalam <b>administrasi server Linux</b> dan bersiap mengikuti Uji Kompetensi Keahlian (UKK) TKJ. Saya juga aktif di ekstrakurikuler jaringan sekolah.</p>
+      <ul class="cert-list">
+        <li>Sertifikat MTCNA (Mikrotik Certified Network Associate) — dalam proses</li>
+        <li>Peserta LKS Bidang IT Network Systems Administration</li>
+        <li>Praktik Kerja Lapangan di Warnet &amp; ISP Lokal</li>
+      </ul>
+    </div>
+    <div class="topo-card">
+      <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
+        <!-- topology diagram: router - switch - 3 PCs -->
+        <g stroke="#2f8f6d" stroke-width="1.5" fill="none">
+          <line x1="160" y1="40" x2="160" y2="100"/>
+          <line x1="160" y1="100" x2="70" y2="180"/>
+          <line x1="160" y1="100" x2="160" y2="180"/>
+          <line x1="160" y1="100" x2="250" y2="180"/>
+        </g>
+        <!-- router -->
+        <rect x="130" y="18" width="60" height="30" rx="3" fill="#0f1c18" stroke="#5ffbc0" stroke-width="1.5"/>
+        <text x="160" y="37" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#5ffbc0">ROUTER</text>
+        <!-- switch -->
+        <rect x="120" y="88" width="80" height="24" rx="3" fill="#0f1c18" stroke="#5ffbc0" stroke-width="1.5"/>
+        <text x="160" y="104" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#5ffbc0">SWITCH</text>
+        <!-- PCs -->
+        <g>
+          <circle cx="70" cy="196" r="18" fill="#0f1c18" stroke="#5ffbc0" stroke-width="1.5"/>
+          <circle cx="160" cy="196" r="18" fill="#0f1c18" stroke="#5ffbc0" stroke-width="1.5"/>
+          <circle cx="250" cy="196" r="18" fill="#0f1c18" stroke="#5ffbc0" stroke-width="1.5"/>
+        </g>
+        <text x="70" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#eaf3ee">PC1</text>
+        <text x="160" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#eaf3ee">PC2</text>
+        <text x="250" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#eaf3ee">PC3</text>
+        <text x="160" y="240" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#9fb5ac">TOPOLOGI STAR — LAB TKJ</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="kontak" class="contact">
+  <div class="eyebrow" style="justify-content:center;"><span class="rule"></span>SIAP TERHUBUNG<span class="rule"></span></div>
+  <h2>Ada proyek jaringan? <span class="accent">Mari terhubung.</span></h2>
+  <p>Terbuka untuk kolaborasi praktik, PKL, atau sekadar diskusi soal jaringan dan server.</p>
+  <div class="contact-links">
+    <a href="mailto:rangga.tkj@email.com">rangga.tkj@email.com</a>
+    <a href="#">wa.me/62xxxxxxxxxx</a>
+    <a href="#">github.com/rangga-tkj</a>
+    <a href="#">linkedin.com/in/rangga-tkj</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Rangga Aditya — TKJ Portfolio</span>
+  <span>Dibuat dengan &lt;3 dan kabel UTP</span>
+</footer>
+
+</body>
+</html>
